@@ -1,74 +1,70 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:net_flix/core/core_providers.dart';
-import 'package:net_flix/movie/controller/get_movie_state.dart';
-import 'package:net_flix/movie/controller/now_playing_state_notifier.dart';
-import 'package:net_flix/movie/widgets/horizontal_movie_skeletal.dart';
+import 'package:net_flix/core/controller/page_state.dart';
+import 'package:net_flix/movie/movie_providers.dart';
+import 'package:net_flix/movie/widgets/movie_hlist_skeleton.dart';
 
-class NowPlayingHList extends ConsumerWidget {
-  const NowPlayingHList({super.key, this.title = 'Now Playing'});
+import 'dart:developer' as dev;
+
+import 'movie_hlist.dart';
+
+class NowPlayingHList extends StatelessWidget {
+  NowPlayingHList({super.key, this.title = 'Now Playing'});
   final String? title;
 
+  final ScrollController scrollController = ScrollController();
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(nowPlayingNotifierProvider);
-    if (state == const GetMovieState.initial()) {
-      WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-        ref.read(nowPlayingNotifierProvider.notifier).getNowPlayingMovies();
-      });
-    }
+  Widget build(BuildContext context){
+    dev.log('Rebuilt Now Playing H Widget');
     return Column(
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12),
-          child: Text(title!, style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.white)),
+          child: Text(title!, style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white)),
         ),
-        const Divider(height: 6),
+        const Divider(height: 8),
         SizedBox(
-          height: MediaQuery.of(context).size.height * 0.2,
-          child: state.when(
-              initial: () => Center(),
-              loading: () => ListView.builder(
-                scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.zero,
-                itemCount: 5,
-                itemBuilder: (BuildContext context, int index) => Padding(
-                  padding: index == 0 ? const EdgeInsets.symmetric(horizontal: 12) : const EdgeInsets.only(right: 12),
-                  child: HorizontalMovieSkeletal(
-                    key: ObjectKey(index),
-                    width: 400,
-                    height: MediaQuery.of(context).size.height * 0.2,
-                  ),
+          height: MediaQuery.of(context).size.height * 0.21,
+          child: Consumer(
+            builder: (ctx, ref, child){
+              dev.log('Rebuilt Now Playing H ListView');
+              scrollController.addListener(() {
+                double maxScroll = scrollController.position.maxScrollExtent;
+                double currentScroll = scrollController.position.pixels;
+                double delta = MediaQuery.of(context).size.width * 0.1;
+                if(maxScroll - currentScroll <= delta){
+                  ref.read(nowPlayingProvider.notifier).fetchNextPage();
+                }
+              });
+              final state = ref.watch(nowPlayingProvider);
+              return switch(state){
+                Loading() => const MovieHListSkeleton(),
+                Error(:final message, :final code) => Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Text('$message [$code]', style: Theme.of(context).textTheme.displaySmall?.copyWith(color: Colors.white)),
                 ),
-              ),
-              data: (nowPlayingMovie) => ListView.builder(
-                scrollDirection: Axis.horizontal,
-                padding: EdgeInsets.zero,
-                itemCount: nowPlayingMovie.results.length,
-                itemBuilder: (BuildContext context, int index) => Container(
-                  height: MediaQuery.of(context).size.height * 0.2,
-                  margin: index == nowPlayingMovie.results.length - 1 ? const EdgeInsets.symmetric(horizontal: 12) : const EdgeInsets.only(left: 12),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10)
-                  ),
-                  clipBehavior: Clip.hardEdge,
-                  child: Column(
-                    children: [
-                      Image.network(
-                        '${ref.read(movieImageBaseUrlProvider)}${nowPlayingMovie.results[index].imageUrl}',
-                        fit: BoxFit.contain,
-                        height: MediaQuery.of(context).size.height * 0.2,
-                        errorBuilder: (BuildContext context, Object error, StackTrace? stacktrace){
-                          return Container();
-                        },
-                      ),
-                    ],
-                  ),
+                OnSubsequentLoad(:final items) => MovieHList(
+                    stateNotifierProvider: nowPlayingProvider,
+                    movies: items,
+                    scrollController: scrollController,
                 ),
-              ),
-              error: (error) => Text(error)),
+                OnSubsequentError(:final loadedItems, :final message, :final code) => MovieHList(
+                    stateNotifierProvider: nowPlayingProvider,
+                    movies: loadedItems,
+                    scrollController: scrollController
+                ),
+                Data(:final items) => MovieHList(
+                  stateNotifierProvider: nowPlayingProvider,
+                  movies: items,
+                  scrollController: scrollController,
+                ),
+              };
+            },
+          ),
         )
       ],
     );

@@ -1,24 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:net_flix/home_screen.dart';
+import 'package:go_router/go_router.dart';
 
-class BaseScreen extends StatefulWidget {
-  const BaseScreen({super.key});
-
-  @override
-  State<BaseScreen> createState() => _BaseScreenState();
-}
-
-class _BaseScreenState extends State<BaseScreen> {
-
-  int _bottomIndex = 0;
-
-  final screens = [
-    HomeScreen(),
-    Container(),
-    Container(),
-    Container()
-  ];
+class BaseScreen extends StatelessWidget {
+  const BaseScreen({super.key, required this.child});
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
@@ -36,17 +22,46 @@ class _BaseScreenState extends State<BaseScreen> {
             BottomNavigationBarItem(icon: Icon(Icons.download_for_offline_rounded), label: 'Downloads'),
           ],
           iconSize: 30,
-          currentIndex: _bottomIndex,
-          onTap: (index){
-            setState(() {
-              _bottomIndex = index;
-            });
-          },
+          currentIndex: _calculateSelectedIndex(context),
+          onTap: (index) => _onBottomNavTap(index, context),
         ),
       ),
-      body: Center(
-        child: screens[_bottomIndex],
-      ),
+      body: child
     );
   }
+
+  static int _calculateSelectedIndex(BuildContext context) {
+    final String location = GoRouterState.of(context).uri.toString();
+    if (location.startsWith('/home')) {
+      return 0;
+    }
+    if (location.startsWith('/game')) {
+      return 1;
+    }
+    if (location.startsWith('/new_hot')) {
+      return 2;
+    }
+    if (location.startsWith('/download')) {
+      return 3;
+    }
+    return 0;
+  }
+
+  void _onBottomNavTap(int index, BuildContext context){
+    switch (index) {
+      case 0:
+        GoRouter.of(context).go('/home');
+        break;
+      case 1:
+        GoRouter.of(context).go('/game');
+        break;
+      case 2:
+        GoRouter.of(context).go('/new_hot');
+        break;
+      case 3:
+        GoRouter.of(context).go('/download');
+        break;
+    }
+  }
+
 }
