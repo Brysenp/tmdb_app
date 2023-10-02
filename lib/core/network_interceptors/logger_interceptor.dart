@@ -23,6 +23,7 @@ class LoggerInterceptor extends Interceptor{
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {
+    developer.log('[URL] - ${response.realUri.toString()}');
     developer.log('[RESPONSE STATUS CODE] - ${response.statusCode ?? 'null'}');
     developer.log('[RESPONSE STATUS MESSAGE] - ${response.statusMessage ?? 'null'}');
     developer.log('[RESPONSE DATA TYPE] - ${response.data.runtimeType}');

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class HorizontalMovieSkeletal extends StatefulWidget {
-  const HorizontalMovieSkeletal({super.key, this.height, this.width});
-  final double? height;
-  final double? width;
+  const HorizontalMovieSkeletal({super.key, required this.height, required this.width});
+  final double height;
+  final double width;
 
   @override
   State<HorizontalMovieSkeletal> createState() => _HorizontalMovieSkeletalState();
@@ -17,7 +17,7 @@ class _HorizontalMovieSkeletalState extends State<HorizontalMovieSkeletal> with 
   void initState() {
     super.initState();
     _controller  = AnimationController(
-        duration: const Duration(milliseconds: 500),
+        duration: const Duration(milliseconds: 180),
         vsync: this
     );
     animation = TweenSequence<Color?>(
@@ -42,9 +42,7 @@ class _HorizontalMovieSkeletalState extends State<HorizontalMovieSkeletal> with 
 
       });
     });
-    _controller.repeat(
-      period: const Duration(seconds: 2)
-    );
+    _controller.repeat();
   }
 
   @override

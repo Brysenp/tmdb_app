@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:net_flix/router.dart';
+import 'package:net_flix/screens/base_screen.dart';
 import 'package:net_flix/theme.dart';
 
 void main() {
@@ -14,9 +14,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ProviderScope(
-      child: MaterialApp.router(
+      child: MaterialApp(
         title: 'Flutter Demo',
-        routerConfig: goRouter,
         theme: ThemeData(
           bottomNavigationBarTheme: const BottomNavigationBarThemeData(
             type: BottomNavigationBarType.fixed,
@@ -28,17 +27,8 @@ class MyApp extends StatelessWidget {
           fontFamily: 'NetflixSans',
           textTheme: textTheme(context),
           dividerColor: Colors.transparent,
-          androidOverscrollIndicator: AndroidOverscrollIndicator.stretch,
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ButtonStyle(
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(3.0),
-                    )
-                ),
-            )
-          )
         ),
+        home: const BaseScreen(),
       ),
     );
   }

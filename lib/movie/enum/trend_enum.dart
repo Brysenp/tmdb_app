@@ -1,4 +1,0 @@
-enum Trend{
-  week,
-  day
-}

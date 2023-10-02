@@ -92,20 +92,20 @@ class _$ApiResponseCopyWithImpl<T, $Res, $Val extends ApiResponse<T>>
 }
 
 /// @nodoc
-abstract class _$$ApiResponseSuccessImplCopyWith<T, $Res> {
-  factory _$$ApiResponseSuccessImplCopyWith(_$ApiResponseSuccessImpl<T> value,
-          $Res Function(_$ApiResponseSuccessImpl<T>) then) =
-      __$$ApiResponseSuccessImplCopyWithImpl<T, $Res>;
+abstract class _$$ApiResponseSuccessCopyWith<T, $Res> {
+  factory _$$ApiResponseSuccessCopyWith(_$ApiResponseSuccess<T> value,
+          $Res Function(_$ApiResponseSuccess<T>) then) =
+      __$$ApiResponseSuccessCopyWithImpl<T, $Res>;
   @useResult
   $Res call({T data});
 }
 
 /// @nodoc
-class __$$ApiResponseSuccessImplCopyWithImpl<T, $Res>
-    extends _$ApiResponseCopyWithImpl<T, $Res, _$ApiResponseSuccessImpl<T>>
-    implements _$$ApiResponseSuccessImplCopyWith<T, $Res> {
-  __$$ApiResponseSuccessImplCopyWithImpl(_$ApiResponseSuccessImpl<T> _value,
-      $Res Function(_$ApiResponseSuccessImpl<T>) _then)
+class __$$ApiResponseSuccessCopyWithImpl<T, $Res>
+    extends _$ApiResponseCopyWithImpl<T, $Res, _$ApiResponseSuccess<T>>
+    implements _$$ApiResponseSuccessCopyWith<T, $Res> {
+  __$$ApiResponseSuccessCopyWithImpl(_$ApiResponseSuccess<T> _value,
+      $Res Function(_$ApiResponseSuccess<T>) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -113,7 +113,7 @@ class __$$ApiResponseSuccessImplCopyWithImpl<T, $Res>
   $Res call({
     Object? data = freezed,
   }) {
-    return _then(_$ApiResponseSuccessImpl<T>(
+    return _then(_$ApiResponseSuccess<T>(
       freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
@@ -124,15 +124,15 @@ class __$$ApiResponseSuccessImplCopyWithImpl<T, $Res>
 
 /// @nodoc
 @JsonSerializable(genericArgumentFactories: true)
-class _$ApiResponseSuccessImpl<T>
+class _$ApiResponseSuccess<T>
     with DiagnosticableTreeMixin
     implements ApiResponseSuccess<T> {
-  const _$ApiResponseSuccessImpl(this.data, {final String? $type})
+  const _$ApiResponseSuccess(this.data, {final String? $type})
       : $type = $type ?? 'data';
 
-  factory _$ApiResponseSuccessImpl.fromJson(
+  factory _$ApiResponseSuccess.fromJson(
           Map<String, dynamic> json, T Function(Object?) fromJsonT) =>
-      _$$ApiResponseSuccessImplFromJson(json, fromJsonT);
+      _$$ApiResponseSuccessFromJson(json, fromJsonT);
 
   @override
   final T data;
@@ -157,7 +157,7 @@ class _$ApiResponseSuccessImpl<T>
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ApiResponseSuccessImpl<T> &&
+            other is _$ApiResponseSuccess<T> &&
             const DeepCollectionEquality().equals(other.data, data));
   }
 
@@ -169,9 +169,9 @@ class _$ApiResponseSuccessImpl<T>
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ApiResponseSuccessImplCopyWith<T, _$ApiResponseSuccessImpl<T>>
-      get copyWith => __$$ApiResponseSuccessImplCopyWithImpl<T,
-          _$ApiResponseSuccessImpl<T>>(this, _$identity);
+  _$$ApiResponseSuccessCopyWith<T, _$ApiResponseSuccess<T>> get copyWith =>
+      __$$ApiResponseSuccessCopyWithImpl<T, _$ApiResponseSuccess<T>>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -221,40 +221,38 @@ class _$ApiResponseSuccessImpl<T>
 
   @override
   Map<String, dynamic> toJson(Object? Function(T) toJsonT) {
-    return _$$ApiResponseSuccessImplToJson<T>(this, toJsonT);
+    return _$$ApiResponseSuccessToJson<T>(this, toJsonT);
   }
 }
 
 abstract class ApiResponseSuccess<T> implements ApiResponse<T> {
-  const factory ApiResponseSuccess(final T data) = _$ApiResponseSuccessImpl<T>;
+  const factory ApiResponseSuccess(final T data) = _$ApiResponseSuccess<T>;
 
   factory ApiResponseSuccess.fromJson(
           Map<String, dynamic> json, T Function(Object?) fromJsonT) =
-      _$ApiResponseSuccessImpl<T>.fromJson;
+      _$ApiResponseSuccess<T>.fromJson;
 
   T get data;
   @JsonKey(ignore: true)
-  _$$ApiResponseSuccessImplCopyWith<T, _$ApiResponseSuccessImpl<T>>
-      get copyWith => throw _privateConstructorUsedError;
+  _$$ApiResponseSuccessCopyWith<T, _$ApiResponseSuccess<T>> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ApiResponseClientErrorImplCopyWith<T, $Res> {
-  factory _$$ApiResponseClientErrorImplCopyWith(
-          _$ApiResponseClientErrorImpl<T> value,
-          $Res Function(_$ApiResponseClientErrorImpl<T>) then) =
-      __$$ApiResponseClientErrorImplCopyWithImpl<T, $Res>;
+abstract class _$$ApiResponseClientErrorCopyWith<T, $Res> {
+  factory _$$ApiResponseClientErrorCopyWith(_$ApiResponseClientError<T> value,
+          $Res Function(_$ApiResponseClientError<T>) then) =
+      __$$ApiResponseClientErrorCopyWithImpl<T, $Res>;
   @useResult
   $Res call({int code, String message, String? referenceId});
 }
 
 /// @nodoc
-class __$$ApiResponseClientErrorImplCopyWithImpl<T, $Res>
-    extends _$ApiResponseCopyWithImpl<T, $Res, _$ApiResponseClientErrorImpl<T>>
-    implements _$$ApiResponseClientErrorImplCopyWith<T, $Res> {
-  __$$ApiResponseClientErrorImplCopyWithImpl(
-      _$ApiResponseClientErrorImpl<T> _value,
-      $Res Function(_$ApiResponseClientErrorImpl<T>) _then)
+class __$$ApiResponseClientErrorCopyWithImpl<T, $Res>
+    extends _$ApiResponseCopyWithImpl<T, $Res, _$ApiResponseClientError<T>>
+    implements _$$ApiResponseClientErrorCopyWith<T, $Res> {
+  __$$ApiResponseClientErrorCopyWithImpl(_$ApiResponseClientError<T> _value,
+      $Res Function(_$ApiResponseClientError<T>) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -264,7 +262,7 @@ class __$$ApiResponseClientErrorImplCopyWithImpl<T, $Res>
     Object? message = null,
     Object? referenceId = freezed,
   }) {
-    return _then(_$ApiResponseClientErrorImpl<T>(
+    return _then(_$ApiResponseClientError<T>(
       null == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
@@ -283,16 +281,16 @@ class __$$ApiResponseClientErrorImplCopyWithImpl<T, $Res>
 
 /// @nodoc
 @JsonSerializable(genericArgumentFactories: true)
-class _$ApiResponseClientErrorImpl<T>
+class _$ApiResponseClientError<T>
     with DiagnosticableTreeMixin
     implements ApiResponseClientError<T> {
-  const _$ApiResponseClientErrorImpl(this.code, this.message, this.referenceId,
+  const _$ApiResponseClientError(this.code, this.message, this.referenceId,
       {final String? $type})
       : $type = $type ?? 'clientError';
 
-  factory _$ApiResponseClientErrorImpl.fromJson(
+  factory _$ApiResponseClientError.fromJson(
           Map<String, dynamic> json, T Function(Object?) fromJsonT) =>
-      _$$ApiResponseClientErrorImplFromJson(json, fromJsonT);
+      _$$ApiResponseClientErrorFromJson(json, fromJsonT);
 
   @override
   final int code;
@@ -323,7 +321,7 @@ class _$ApiResponseClientErrorImpl<T>
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ApiResponseClientErrorImpl<T> &&
+            other is _$ApiResponseClientError<T> &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.referenceId, referenceId) ||
@@ -337,9 +335,9 @@ class _$ApiResponseClientErrorImpl<T>
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ApiResponseClientErrorImplCopyWith<T, _$ApiResponseClientErrorImpl<T>>
-      get copyWith => __$$ApiResponseClientErrorImplCopyWithImpl<T,
-          _$ApiResponseClientErrorImpl<T>>(this, _$identity);
+  _$$ApiResponseClientErrorCopyWith<T, _$ApiResponseClientError<T>>
+      get copyWith => __$$ApiResponseClientErrorCopyWithImpl<T,
+          _$ApiResponseClientError<T>>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -389,44 +387,42 @@ class _$ApiResponseClientErrorImpl<T>
 
   @override
   Map<String, dynamic> toJson(Object? Function(T) toJsonT) {
-    return _$$ApiResponseClientErrorImplToJson<T>(this, toJsonT);
+    return _$$ApiResponseClientErrorToJson<T>(this, toJsonT);
   }
 }
 
 abstract class ApiResponseClientError<T> implements ApiResponse<T> {
   const factory ApiResponseClientError(
           final int code, final String message, final String? referenceId) =
-      _$ApiResponseClientErrorImpl<T>;
+      _$ApiResponseClientError<T>;
 
   factory ApiResponseClientError.fromJson(
           Map<String, dynamic> json, T Function(Object?) fromJsonT) =
-      _$ApiResponseClientErrorImpl<T>.fromJson;
+      _$ApiResponseClientError<T>.fromJson;
 
   int get code;
   String get message;
   String? get referenceId;
   @JsonKey(ignore: true)
-  _$$ApiResponseClientErrorImplCopyWith<T, _$ApiResponseClientErrorImpl<T>>
+  _$$ApiResponseClientErrorCopyWith<T, _$ApiResponseClientError<T>>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ApiResponseServerErrorImplCopyWith<T, $Res> {
-  factory _$$ApiResponseServerErrorImplCopyWith(
-          _$ApiResponseServerErrorImpl<T> value,
-          $Res Function(_$ApiResponseServerErrorImpl<T>) then) =
-      __$$ApiResponseServerErrorImplCopyWithImpl<T, $Res>;
+abstract class _$$ApiResponseServerErrorCopyWith<T, $Res> {
+  factory _$$ApiResponseServerErrorCopyWith(_$ApiResponseServerError<T> value,
+          $Res Function(_$ApiResponseServerError<T>) then) =
+      __$$ApiResponseServerErrorCopyWithImpl<T, $Res>;
   @useResult
   $Res call({int code, String message, String? referenceId});
 }
 
 /// @nodoc
-class __$$ApiResponseServerErrorImplCopyWithImpl<T, $Res>
-    extends _$ApiResponseCopyWithImpl<T, $Res, _$ApiResponseServerErrorImpl<T>>
-    implements _$$ApiResponseServerErrorImplCopyWith<T, $Res> {
-  __$$ApiResponseServerErrorImplCopyWithImpl(
-      _$ApiResponseServerErrorImpl<T> _value,
-      $Res Function(_$ApiResponseServerErrorImpl<T>) _then)
+class __$$ApiResponseServerErrorCopyWithImpl<T, $Res>
+    extends _$ApiResponseCopyWithImpl<T, $Res, _$ApiResponseServerError<T>>
+    implements _$$ApiResponseServerErrorCopyWith<T, $Res> {
+  __$$ApiResponseServerErrorCopyWithImpl(_$ApiResponseServerError<T> _value,
+      $Res Function(_$ApiResponseServerError<T>) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -436,7 +432,7 @@ class __$$ApiResponseServerErrorImplCopyWithImpl<T, $Res>
     Object? message = null,
     Object? referenceId = freezed,
   }) {
-    return _then(_$ApiResponseServerErrorImpl<T>(
+    return _then(_$ApiResponseServerError<T>(
       null == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
@@ -455,16 +451,16 @@ class __$$ApiResponseServerErrorImplCopyWithImpl<T, $Res>
 
 /// @nodoc
 @JsonSerializable(genericArgumentFactories: true)
-class _$ApiResponseServerErrorImpl<T>
+class _$ApiResponseServerError<T>
     with DiagnosticableTreeMixin
     implements ApiResponseServerError<T> {
-  const _$ApiResponseServerErrorImpl(this.code, this.message, this.referenceId,
+  const _$ApiResponseServerError(this.code, this.message, this.referenceId,
       {final String? $type})
       : $type = $type ?? 'serverError';
 
-  factory _$ApiResponseServerErrorImpl.fromJson(
+  factory _$ApiResponseServerError.fromJson(
           Map<String, dynamic> json, T Function(Object?) fromJsonT) =>
-      _$$ApiResponseServerErrorImplFromJson(json, fromJsonT);
+      _$$ApiResponseServerErrorFromJson(json, fromJsonT);
 
   @override
   final int code;
@@ -495,7 +491,7 @@ class _$ApiResponseServerErrorImpl<T>
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ApiResponseServerErrorImpl<T> &&
+            other is _$ApiResponseServerError<T> &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.referenceId, referenceId) ||
@@ -509,9 +505,9 @@ class _$ApiResponseServerErrorImpl<T>
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ApiResponseServerErrorImplCopyWith<T, _$ApiResponseServerErrorImpl<T>>
-      get copyWith => __$$ApiResponseServerErrorImplCopyWithImpl<T,
-          _$ApiResponseServerErrorImpl<T>>(this, _$identity);
+  _$$ApiResponseServerErrorCopyWith<T, _$ApiResponseServerError<T>>
+      get copyWith => __$$ApiResponseServerErrorCopyWithImpl<T,
+          _$ApiResponseServerError<T>>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -561,42 +557,42 @@ class _$ApiResponseServerErrorImpl<T>
 
   @override
   Map<String, dynamic> toJson(Object? Function(T) toJsonT) {
-    return _$$ApiResponseServerErrorImplToJson<T>(this, toJsonT);
+    return _$$ApiResponseServerErrorToJson<T>(this, toJsonT);
   }
 }
 
 abstract class ApiResponseServerError<T> implements ApiResponse<T> {
   const factory ApiResponseServerError(
           final int code, final String message, final String? referenceId) =
-      _$ApiResponseServerErrorImpl<T>;
+      _$ApiResponseServerError<T>;
 
   factory ApiResponseServerError.fromJson(
           Map<String, dynamic> json, T Function(Object?) fromJsonT) =
-      _$ApiResponseServerErrorImpl<T>.fromJson;
+      _$ApiResponseServerError<T>.fromJson;
 
   int get code;
   String get message;
   String? get referenceId;
   @JsonKey(ignore: true)
-  _$$ApiResponseServerErrorImplCopyWith<T, _$ApiResponseServerErrorImpl<T>>
+  _$$ApiResponseServerErrorCopyWith<T, _$ApiResponseServerError<T>>
       get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ApiResponseErrorImplCopyWith<T, $Res> {
-  factory _$$ApiResponseErrorImplCopyWith(_$ApiResponseErrorImpl<T> value,
-          $Res Function(_$ApiResponseErrorImpl<T>) then) =
-      __$$ApiResponseErrorImplCopyWithImpl<T, $Res>;
+abstract class _$$ApiResponseErrorCopyWith<T, $Res> {
+  factory _$$ApiResponseErrorCopyWith(_$ApiResponseError<T> value,
+          $Res Function(_$ApiResponseError<T>) then) =
+      __$$ApiResponseErrorCopyWithImpl<T, $Res>;
   @useResult
   $Res call({int code, String message, String? referenceId});
 }
 
 /// @nodoc
-class __$$ApiResponseErrorImplCopyWithImpl<T, $Res>
-    extends _$ApiResponseCopyWithImpl<T, $Res, _$ApiResponseErrorImpl<T>>
-    implements _$$ApiResponseErrorImplCopyWith<T, $Res> {
-  __$$ApiResponseErrorImplCopyWithImpl(_$ApiResponseErrorImpl<T> _value,
-      $Res Function(_$ApiResponseErrorImpl<T>) _then)
+class __$$ApiResponseErrorCopyWithImpl<T, $Res>
+    extends _$ApiResponseCopyWithImpl<T, $Res, _$ApiResponseError<T>>
+    implements _$$ApiResponseErrorCopyWith<T, $Res> {
+  __$$ApiResponseErrorCopyWithImpl(
+      _$ApiResponseError<T> _value, $Res Function(_$ApiResponseError<T>) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -606,7 +602,7 @@ class __$$ApiResponseErrorImplCopyWithImpl<T, $Res>
     Object? message = null,
     Object? referenceId = freezed,
   }) {
-    return _then(_$ApiResponseErrorImpl<T>(
+    return _then(_$ApiResponseError<T>(
       null == code
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
@@ -625,16 +621,16 @@ class __$$ApiResponseErrorImplCopyWithImpl<T, $Res>
 
 /// @nodoc
 @JsonSerializable(genericArgumentFactories: true)
-class _$ApiResponseErrorImpl<T>
+class _$ApiResponseError<T>
     with DiagnosticableTreeMixin
     implements ApiResponseError<T> {
-  const _$ApiResponseErrorImpl(this.code, this.message, this.referenceId,
+  const _$ApiResponseError(this.code, this.message, this.referenceId,
       {final String? $type})
       : $type = $type ?? 'unknownError';
 
-  factory _$ApiResponseErrorImpl.fromJson(
+  factory _$ApiResponseError.fromJson(
           Map<String, dynamic> json, T Function(Object?) fromJsonT) =>
-      _$$ApiResponseErrorImplFromJson(json, fromJsonT);
+      _$$ApiResponseErrorFromJson(json, fromJsonT);
 
   @override
   final int code;
@@ -665,7 +661,7 @@ class _$ApiResponseErrorImpl<T>
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$ApiResponseErrorImpl<T> &&
+            other is _$ApiResponseError<T> &&
             (identical(other.code, code) || other.code == code) &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.referenceId, referenceId) ||
@@ -679,8 +675,8 @@ class _$ApiResponseErrorImpl<T>
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ApiResponseErrorImplCopyWith<T, _$ApiResponseErrorImpl<T>> get copyWith =>
-      __$$ApiResponseErrorImplCopyWithImpl<T, _$ApiResponseErrorImpl<T>>(
+  _$$ApiResponseErrorCopyWith<T, _$ApiResponseError<T>> get copyWith =>
+      __$$ApiResponseErrorCopyWithImpl<T, _$ApiResponseError<T>>(
           this, _$identity);
 
   @override
@@ -731,23 +727,23 @@ class _$ApiResponseErrorImpl<T>
 
   @override
   Map<String, dynamic> toJson(Object? Function(T) toJsonT) {
-    return _$$ApiResponseErrorImplToJson<T>(this, toJsonT);
+    return _$$ApiResponseErrorToJson<T>(this, toJsonT);
   }
 }
 
 abstract class ApiResponseError<T> implements ApiResponse<T> {
   const factory ApiResponseError(
           final int code, final String message, final String? referenceId) =
-      _$ApiResponseErrorImpl<T>;
+      _$ApiResponseError<T>;
 
   factory ApiResponseError.fromJson(
           Map<String, dynamic> json, T Function(Object?) fromJsonT) =
-      _$ApiResponseErrorImpl<T>.fromJson;
+      _$ApiResponseError<T>.fromJson;
 
   int get code;
   String get message;
   String? get referenceId;
   @JsonKey(ignore: true)
-  _$$ApiResponseErrorImplCopyWith<T, _$ApiResponseErrorImpl<T>> get copyWith =>
+  _$$ApiResponseErrorCopyWith<T, _$ApiResponseError<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
