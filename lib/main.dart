@@ -17,7 +17,6 @@ class MyApp extends StatelessWidget {
       child: MaterialApp.router(
         title: 'Flutter Demo',
         routerConfig: goRouter,
-
         theme: ThemeData(
           bottomNavigationBarTheme: const BottomNavigationBarThemeData(
             type: BottomNavigationBarType.fixed,
@@ -29,6 +28,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'NetflixSans',
           textTheme: textTheme(context),
           dividerColor: Colors.transparent,
+          androidOverscrollIndicator: AndroidOverscrollIndicator.stretch,
           elevatedButtonTheme: ElevatedButtonThemeData(
             style: ButtonStyle(
                 shape: MaterialStateProperty.all<RoundedRectangleBorder>(

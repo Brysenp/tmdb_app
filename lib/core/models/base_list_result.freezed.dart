@@ -22,6 +22,8 @@ BaseListResult<T> _$BaseListResultFromJson<T>(
 /// @nodoc
 mixin _$BaseListResult<T> {
   int get page => throw _privateConstructorUsedError;
+  @JsonKey(name: 'total_pages')
+  int get totalPages => throw _privateConstructorUsedError;
   List<T> get results => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson(Object? Function(T) toJsonT) =>
@@ -37,7 +39,10 @@ abstract class $BaseListResultCopyWith<T, $Res> {
           BaseListResult<T> value, $Res Function(BaseListResult<T>) then) =
       _$BaseListResultCopyWithImpl<T, $Res, BaseListResult<T>>;
   @useResult
-  $Res call({int page, List<T> results});
+  $Res call(
+      {int page,
+      @JsonKey(name: 'total_pages') int totalPages,
+      List<T> results});
 }
 
 /// @nodoc
@@ -54,12 +59,17 @@ class _$BaseListResultCopyWithImpl<T, $Res, $Val extends BaseListResult<T>>
   @override
   $Res call({
     Object? page = null,
+    Object? totalPages = null,
     Object? results = null,
   }) {
     return _then(_value.copyWith(
       page: null == page
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
+              as int,
+      totalPages: null == totalPages
+          ? _value.totalPages
+          : totalPages // ignore: cast_nullable_to_non_nullable
               as int,
       results: null == results
           ? _value.results
@@ -77,7 +87,10 @@ abstract class _$$BaseListResultImplCopyWith<T, $Res>
       __$$BaseListResultImplCopyWithImpl<T, $Res>;
   @override
   @useResult
-  $Res call({int page, List<T> results});
+  $Res call(
+      {int page,
+      @JsonKey(name: 'total_pages') int totalPages,
+      List<T> results});
 }
 
 /// @nodoc
@@ -92,12 +105,17 @@ class __$$BaseListResultImplCopyWithImpl<T, $Res>
   @override
   $Res call({
     Object? page = null,
+    Object? totalPages = null,
     Object? results = null,
   }) {
     return _then(_$BaseListResultImpl<T>(
       page: null == page
           ? _value.page
           : page // ignore: cast_nullable_to_non_nullable
+              as int,
+      totalPages: null == totalPages
+          ? _value.totalPages
+          : totalPages // ignore: cast_nullable_to_non_nullable
               as int,
       results: null == results
           ? _value._results
@@ -110,7 +128,10 @@ class __$$BaseListResultImplCopyWithImpl<T, $Res>
 /// @nodoc
 @JsonSerializable(genericArgumentFactories: true)
 class _$BaseListResultImpl<T> implements _BaseListResult<T> {
-  _$BaseListResultImpl({required this.page, required final List<T> results})
+  _$BaseListResultImpl(
+      {required this.page,
+      @JsonKey(name: 'total_pages') this.totalPages = -1,
+      required final List<T> results})
       : _results = results;
 
   factory _$BaseListResultImpl.fromJson(
@@ -119,6 +140,9 @@ class _$BaseListResultImpl<T> implements _BaseListResult<T> {
 
   @override
   final int page;
+  @override
+  @JsonKey(name: 'total_pages')
+  final int totalPages;
   final List<T> _results;
   @override
   List<T> get results {
@@ -129,7 +153,7 @@ class _$BaseListResultImpl<T> implements _BaseListResult<T> {
 
   @override
   String toString() {
-    return 'BaseListResult<$T>(page: $page, results: $results)';
+    return 'BaseListResult<$T>(page: $page, totalPages: $totalPages, results: $results)';
   }
 
   @override
@@ -138,13 +162,15 @@ class _$BaseListResultImpl<T> implements _BaseListResult<T> {
         (other.runtimeType == runtimeType &&
             other is _$BaseListResultImpl<T> &&
             (identical(other.page, page) || other.page == page) &&
+            (identical(other.totalPages, totalPages) ||
+                other.totalPages == totalPages) &&
             const DeepCollectionEquality().equals(other._results, _results));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, page, const DeepCollectionEquality().hash(_results));
+  int get hashCode => Object.hash(runtimeType, page, totalPages,
+      const DeepCollectionEquality().hash(_results));
 
   @JsonKey(ignore: true)
   @override
@@ -162,6 +188,7 @@ class _$BaseListResultImpl<T> implements _BaseListResult<T> {
 abstract class _BaseListResult<T> implements BaseListResult<T> {
   factory _BaseListResult(
       {required final int page,
+      @JsonKey(name: 'total_pages') final int totalPages,
       required final List<T> results}) = _$BaseListResultImpl<T>;
 
   factory _BaseListResult.fromJson(
@@ -170,6 +197,9 @@ abstract class _BaseListResult<T> implements BaseListResult<T> {
 
   @override
   int get page;
+  @override
+  @JsonKey(name: 'total_pages')
+  int get totalPages;
   @override
   List<T> get results;
   @override

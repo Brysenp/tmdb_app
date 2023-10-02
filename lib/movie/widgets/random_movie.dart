@@ -33,7 +33,7 @@ class RandomMovie extends ConsumerWidget {
           ),
         );
       },
-      data: (items){
+      data: (items, reachedEnd){
         Movie randomMovie = ref.read(nowPlayingProvider.notifier).getRandom();
         return Align(
           alignment: Alignment.center,

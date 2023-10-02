@@ -7,7 +7,7 @@ part 'page_state.freezed.dart';
   map: FreezedMapOptions.none,
 )
 sealed class PageState<T> with _$PageState<T>{
-  const factory PageState.data(List<T> items) = Data;
+  const factory PageState.data(List<T> items, bool reachedEnd) = Data;
   const factory PageState.loading() = Loading;
   const factory PageState.error(String message, int? code) = Error;
   const factory PageState.onSubsequentLoad(List<T> items) = OnSubsequentLoad;

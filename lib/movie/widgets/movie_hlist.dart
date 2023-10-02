@@ -19,7 +19,7 @@ class MovieHList extends ConsumerWidget {
       required this.scrollController});
   final List<Movie> movies;
   final ScrollController scrollController;
-  final StateNotifierProvider<PageStateNotifier<Movie>, PageState<Movie>>
+  final AutoDisposeStateNotifierProvider<PageStateNotifier<Movie>, PageState<Movie>>
       stateNotifierProvider;
 
   @override
@@ -39,7 +39,7 @@ class MovieHList extends ConsumerWidget {
               refresh: ref.read(stateNotifierProvider.notifier).fetchNextPage,
             ),
             onSubsequentLoad: (loadedItems) => const MovieItemLoading(),
-            data: (items) => ref.watch(stateNotifierProvider.notifier).reachMaxPage ? const MovieReachEnd() : const SizedBox.shrink(),
+            data: (items, reachedEnd) => reachedEnd ? const MovieReachEnd() : const SizedBox.shrink(),
             orElse: () => const SizedBox.shrink(),
           ): MovieItem(
             movie: movies[index],
@@ -55,11 +55,12 @@ class MovieItem extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    String heroUUID = ref.read(uuidProvider).v4();
     double heightFactor = ref.read(imageHeightFactor);
     double widthFactor = ref.read(imageWidthFactor);
     return InkWell(
       onTap: (){
-        GoRouter.of(context).go('/home/movie_detail', extra: movie);
+        GoRouter.of(context).go('/home/movie_detail?id=${movie.id}&heroId=$heroUUID', extra: movie);
       },
       child: Container(
         width: MediaQuery.of(context).size.height * widthFactor,
@@ -71,33 +72,36 @@ class MovieItem extends ConsumerWidget {
         clipBehavior: Clip.antiAliasWithSaveLayer,
         child: Column(
           children: [
-            CachedNetworkImage(
-              imageUrl: '${ref.read(movieImageBaseUrlProvider)}${movie.imageUrl}',
-              fit: BoxFit.fill,
-              width: MediaQuery.of(context).size.height * widthFactor,
-              height: MediaQuery.of(context).size.height * heightFactor,
-              placeholder: (BuildContext ctx, String url) {
-                return HorizontalMovieSkeletal(
-                  key: ObjectKey(movie.imageUrl),
-                  width: MediaQuery.of(context).size.height * widthFactor,
-                  height: MediaQuery.of(context).size.height * heightFactor,
-                );
-              },
-              errorWidget: (BuildContext ctx, String url, dynamic error) {
-                return const Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Icon(
-                      Icons.broken_image_rounded,
-                      color: Colors.white,
-                    ),
-                    Text('Unable to load image',
-                        style: TextStyle(color: Colors.white),
-                        textAlign: TextAlign.center),
-                  ],
-                );
-              },
+            Hero(
+              tag: heroUUID,
+              child: CachedNetworkImage(
+                imageUrl: '${ref.read(movieImageBaseUrlProvider)}${movie.imageUrl}',
+                fit: BoxFit.fill,
+                width: MediaQuery.of(context).size.height * widthFactor,
+                height: MediaQuery.of(context).size.height * heightFactor,
+                placeholder: (BuildContext ctx, String url) {
+                  return HorizontalMovieSkeletal(
+                    key: ObjectKey(movie.imageUrl),
+                    width: MediaQuery.of(context).size.height * widthFactor,
+                    height: MediaQuery.of(context).size.height * heightFactor,
+                  );
+                },
+                errorWidget: (BuildContext ctx, String url, dynamic error) {
+                  return const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.broken_image_rounded,
+                        color: Colors.white,
+                      ),
+                      Text('Unable to load image',
+                          style: TextStyle(color: Colors.white),
+                          textAlign: TextAlign.center),
+                    ],
+                  );
+                },
+              ),
             )
           ],
         ),

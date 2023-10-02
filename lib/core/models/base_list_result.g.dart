@@ -12,6 +12,7 @@ _$BaseListResultImpl<T> _$$BaseListResultImplFromJson<T>(
 ) =>
     _$BaseListResultImpl<T>(
       page: json['page'] as int,
+      totalPages: json['total_pages'] as int? ?? -1,
       results: (json['results'] as List<dynamic>).map(fromJsonT).toList(),
     );
 
@@ -21,5 +22,6 @@ Map<String, dynamic> _$$BaseListResultImplToJson<T>(
 ) =>
     <String, dynamic>{
       'page': instance.page,
+      'total_pages': instance.totalPages,
       'results': instance.results.map(toJsonT).toList(),
     };

@@ -26,6 +26,7 @@ mixin _$Movie {
   @JsonKey(name: 'poster_path')
   String? get imageUrl => throw _privateConstructorUsedError;
   @JsonKey(name: 'release_date')
+  @ReleaseDateConverter()
   DateTime? get releaseDate => throw _privateConstructorUsedError;
   String get overview => throw _privateConstructorUsedError;
 
@@ -44,7 +45,9 @@ abstract class $MovieCopyWith<$Res> {
       bool adult,
       String title,
       @JsonKey(name: 'poster_path') String? imageUrl,
-      @JsonKey(name: 'release_date') DateTime? releaseDate,
+      @JsonKey(name: 'release_date')
+      @ReleaseDateConverter()
+      DateTime? releaseDate,
       String overview});
 }
 
@@ -109,7 +112,9 @@ abstract class _$$MovieImplCopyWith<$Res> implements $MovieCopyWith<$Res> {
       bool adult,
       String title,
       @JsonKey(name: 'poster_path') String? imageUrl,
-      @JsonKey(name: 'release_date') DateTime? releaseDate,
+      @JsonKey(name: 'release_date')
+      @ReleaseDateConverter()
+      DateTime? releaseDate,
       String overview});
 }
 
@@ -168,7 +173,7 @@ class _$MovieImpl with DiagnosticableTreeMixin implements _Movie {
       required this.adult,
       required this.title,
       @JsonKey(name: 'poster_path') this.imageUrl,
-      @JsonKey(name: 'release_date') this.releaseDate,
+      @JsonKey(name: 'release_date') @ReleaseDateConverter() this.releaseDate,
       required this.overview});
 
   factory _$MovieImpl.fromJson(Map<String, dynamic> json) =>
@@ -185,6 +190,7 @@ class _$MovieImpl with DiagnosticableTreeMixin implements _Movie {
   final String? imageUrl;
   @override
   @JsonKey(name: 'release_date')
+  @ReleaseDateConverter()
   final DateTime? releaseDate;
   @override
   final String overview;
@@ -248,7 +254,9 @@ abstract class _Movie implements Movie {
       required final bool adult,
       required final String title,
       @JsonKey(name: 'poster_path') final String? imageUrl,
-      @JsonKey(name: 'release_date') final DateTime? releaseDate,
+      @JsonKey(name: 'release_date')
+      @ReleaseDateConverter()
+      final DateTime? releaseDate,
       required final String overview}) = _$MovieImpl;
 
   factory _Movie.fromJson(Map<String, dynamic> json) = _$MovieImpl.fromJson;
@@ -264,6 +272,7 @@ abstract class _Movie implements Movie {
   String? get imageUrl;
   @override
   @JsonKey(name: 'release_date')
+  @ReleaseDateConverter()
   DateTime? get releaseDate;
   @override
   String get overview;

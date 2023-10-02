@@ -11,9 +11,8 @@ _$MovieImpl _$$MovieImplFromJson(Map<String, dynamic> json) => _$MovieImpl(
       adult: json['adult'] as bool,
       title: json['title'] as String,
       imageUrl: json['poster_path'] as String?,
-      releaseDate: json['release_date'] == null
-          ? null
-          : DateTime.parse(json['release_date'] as String),
+      releaseDate: _$JsonConverterFromJson<String, DateTime?>(
+          json['release_date'], const ReleaseDateConverter().fromJson),
       overview: json['overview'] as String,
     );
 
@@ -23,6 +22,12 @@ Map<String, dynamic> _$$MovieImplToJson(_$MovieImpl instance) =>
       'adult': instance.adult,
       'title': instance.title,
       'poster_path': instance.imageUrl,
-      'release_date': instance.releaseDate?.toIso8601String(),
+      'release_date': const ReleaseDateConverter().toJson(instance.releaseDate),
       'overview': instance.overview,
     };
+
+Value? _$JsonConverterFromJson<Json, Value>(
+  Object? json,
+  Value? Function(Json json) fromJson,
+) =>
+    json == null ? null : fromJson(json as Json);

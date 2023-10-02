@@ -11,6 +11,9 @@ part 'base_list_result.g.dart';
 class BaseListResult<T> with _$BaseListResult<T>{
   factory BaseListResult({
     required int page,
+    @JsonKey(name: 'total_pages') 
+    @Default(-1)
+    int totalPages,
     required List<T> results,
   }) = _BaseListResult<T>;
 

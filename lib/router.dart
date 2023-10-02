@@ -14,6 +14,7 @@ final GlobalKey<NavigatorState> _shellNavigatorKey =
 final GoRouter goRouter = GoRouter(
   navigatorKey: _rootNavigatorKey,
   initialLocation: '/home',
+  debugLogDiagnostics: true,
   routes: <RouteBase>[
     ShellRoute(
       navigatorKey: _shellNavigatorKey,
@@ -30,7 +31,9 @@ final GoRouter goRouter = GoRouter(
             GoRoute(
               path: 'movie_detail',
               builder: (BuildContext context, GoRouterState state) {
-                return MovieDetailScreen(selectedMovie: state.extra as Movie);
+                return MovieDetailScreen(
+                  selectedMovie: state.extra as Movie,
+                  heroUUID: state.uri.queryParameters['heroId']!,);
               },
             )
           ],

@@ -6,6 +6,7 @@ import 'package:net_flix/movie/enum/trend_enum.dart';
 import 'package:net_flix/movie/models/movie.dart';
 import 'package:net_flix/core/core_providers.dart';
 import 'package:net_flix/movie/models/movie_detail.dart';
+import 'package:net_flix/movie/models/review.dart';
 import 'package:uuid/uuid.dart';
 import 'dart:developer' as dev;
 
@@ -101,6 +102,44 @@ class MovieService implements MovieInterface{
     }
   }
 
+  @override
+  Future<ApiResponse<BaseListResult<Movie>>> getRecommendMovie(int movieId, int page) async {
+    try{
+      final response = await dio.get(
+          'https://api.themoviedb.org/3/movie/$movieId/recommendations',
+          queryParameters: {
+            'language': 'en-US',
+            'page': page
+          }
+      );
+      dev.log('MovieService - Get Recommendation of the $movieId API ${response.statusCode}', time: DateTime.now());
+      return ApiResponseSuccess(BaseListResult.fromJson(response.data, (movieJson) {
+        return  Movie.fromJson(movieJson as Map<String, dynamic>);
+      } ,));
+    }on DioException catch (e, stacktrace){
+      dev.log('MovieService - Get Recommendation of the $movieId API [DioException]', error: e.error, stackTrace: stacktrace);
+      return ApiResponseError(e.response?.statusCode ?? e.type.index, e.response?.statusMessage ?? e.type.name, uuid.v4());
+    }
+  }
 
+  @override
+  Future<ApiResponse<BaseListResult<Review>>> getMovieReviews(int movieId, int page) async {
+    try{
+      final response = await dio.get(
+          'https://api.themoviedb.org/3/movie/$movieId/reviews',
+          queryParameters: {
+            'language': 'en-US',
+            'page': page
+          }
+      );
+      dev.log('MovieService - Get Review of the $movieId API ${response.statusCode}', time: DateTime.now());
+      return ApiResponseSuccess(BaseListResult.fromJson(response.data, (reviewJson) {
+        return  Review.fromJson(reviewJson as Map<String, dynamic>);
+      } ,));
+    }on DioException catch (e, stacktrace){
+      dev.log('MovieService - Get Review of the $movieId API [DioException]', error: e.error, stackTrace: stacktrace);
+      return ApiResponseError(e.response?.statusCode ?? e.type.index, e.response?.statusMessage ?? e.type.name, uuid.v4());
+    }
+  }
 
 }

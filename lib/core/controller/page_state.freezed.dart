@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PageState<T> {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<T> items) data,
+    required TResult Function(List<T> items, bool reachedEnd) data,
     required TResult Function() loading,
     required TResult Function(String message, int? code) error,
     required TResult Function(List<T> items) onSubsequentLoad,
@@ -28,7 +28,7 @@ mixin _$PageState<T> {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<T> items)? data,
+    TResult? Function(List<T> items, bool reachedEnd)? data,
     TResult? Function()? loading,
     TResult? Function(String message, int? code)? error,
     TResult? Function(List<T> items)? onSubsequentLoad,
@@ -38,7 +38,7 @@ mixin _$PageState<T> {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<T> items)? data,
+    TResult Function(List<T> items, bool reachedEnd)? data,
     TResult Function()? loading,
     TResult Function(String message, int? code)? error,
     TResult Function(List<T> items)? onSubsequentLoad,
@@ -73,7 +73,7 @@ abstract class _$$DataImplCopyWith<T, $Res> {
           _$DataImpl<T> value, $Res Function(_$DataImpl<T>) then) =
       __$$DataImplCopyWithImpl<T, $Res>;
   @useResult
-  $Res call({List<T> items});
+  $Res call({List<T> items, bool reachedEnd});
 }
 
 /// @nodoc
@@ -88,12 +88,17 @@ class __$$DataImplCopyWithImpl<T, $Res>
   @override
   $Res call({
     Object? items = null,
+    Object? reachedEnd = null,
   }) {
     return _then(_$DataImpl<T>(
       null == items
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
               as List<T>,
+      null == reachedEnd
+          ? _value.reachedEnd
+          : reachedEnd // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -101,7 +106,7 @@ class __$$DataImplCopyWithImpl<T, $Res>
 /// @nodoc
 
 class _$DataImpl<T> with DiagnosticableTreeMixin implements Data<T> {
-  const _$DataImpl(final List<T> items) : _items = items;
+  const _$DataImpl(final List<T> items, this.reachedEnd) : _items = items;
 
   final List<T> _items;
   @override
@@ -112,8 +117,11 @@ class _$DataImpl<T> with DiagnosticableTreeMixin implements Data<T> {
   }
 
   @override
+  final bool reachedEnd;
+
+  @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'PageState<$T>.data(items: $items)';
+    return 'PageState<$T>.data(items: $items, reachedEnd: $reachedEnd)';
   }
 
   @override
@@ -121,7 +129,8 @@ class _$DataImpl<T> with DiagnosticableTreeMixin implements Data<T> {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('type', 'PageState<$T>.data'))
-      ..add(DiagnosticsProperty('items', items));
+      ..add(DiagnosticsProperty('items', items))
+      ..add(DiagnosticsProperty('reachedEnd', reachedEnd));
   }
 
   @override
@@ -129,12 +138,14 @@ class _$DataImpl<T> with DiagnosticableTreeMixin implements Data<T> {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$DataImpl<T> &&
-            const DeepCollectionEquality().equals(other._items, _items));
+            const DeepCollectionEquality().equals(other._items, _items) &&
+            (identical(other.reachedEnd, reachedEnd) ||
+                other.reachedEnd == reachedEnd));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_items));
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_items), reachedEnd);
 
   @JsonKey(ignore: true)
   @override
@@ -145,33 +156,33 @@ class _$DataImpl<T> with DiagnosticableTreeMixin implements Data<T> {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<T> items) data,
+    required TResult Function(List<T> items, bool reachedEnd) data,
     required TResult Function() loading,
     required TResult Function(String message, int? code) error,
     required TResult Function(List<T> items) onSubsequentLoad,
     required TResult Function(List<T> loadedItems, String message, int? code)
         onSubsequentError,
   }) {
-    return data(items);
+    return data(items, reachedEnd);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<T> items)? data,
+    TResult? Function(List<T> items, bool reachedEnd)? data,
     TResult? Function()? loading,
     TResult? Function(String message, int? code)? error,
     TResult? Function(List<T> items)? onSubsequentLoad,
     TResult? Function(List<T> loadedItems, String message, int? code)?
         onSubsequentError,
   }) {
-    return data?.call(items);
+    return data?.call(items, reachedEnd);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<T> items)? data,
+    TResult Function(List<T> items, bool reachedEnd)? data,
     TResult Function()? loading,
     TResult Function(String message, int? code)? error,
     TResult Function(List<T> items)? onSubsequentLoad,
@@ -180,16 +191,18 @@ class _$DataImpl<T> with DiagnosticableTreeMixin implements Data<T> {
     required TResult orElse(),
   }) {
     if (data != null) {
-      return data(items);
+      return data(items, reachedEnd);
     }
     return orElse();
   }
 }
 
 abstract class Data<T> implements PageState<T> {
-  const factory Data(final List<T> items) = _$DataImpl<T>;
+  const factory Data(final List<T> items, final bool reachedEnd) =
+      _$DataImpl<T>;
 
   List<T> get items;
+  bool get reachedEnd;
   @JsonKey(ignore: true)
   _$$DataImplCopyWith<T, _$DataImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
@@ -239,7 +252,7 @@ class _$LoadingImpl<T> with DiagnosticableTreeMixin implements Loading<T> {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<T> items) data,
+    required TResult Function(List<T> items, bool reachedEnd) data,
     required TResult Function() loading,
     required TResult Function(String message, int? code) error,
     required TResult Function(List<T> items) onSubsequentLoad,
@@ -252,7 +265,7 @@ class _$LoadingImpl<T> with DiagnosticableTreeMixin implements Loading<T> {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<T> items)? data,
+    TResult? Function(List<T> items, bool reachedEnd)? data,
     TResult? Function()? loading,
     TResult? Function(String message, int? code)? error,
     TResult? Function(List<T> items)? onSubsequentLoad,
@@ -265,7 +278,7 @@ class _$LoadingImpl<T> with DiagnosticableTreeMixin implements Loading<T> {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<T> items)? data,
+    TResult Function(List<T> items, bool reachedEnd)? data,
     TResult Function()? loading,
     TResult Function(String message, int? code)? error,
     TResult Function(List<T> items)? onSubsequentLoad,
@@ -365,7 +378,7 @@ class _$ErrorImpl<T> with DiagnosticableTreeMixin implements Error<T> {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<T> items) data,
+    required TResult Function(List<T> items, bool reachedEnd) data,
     required TResult Function() loading,
     required TResult Function(String message, int? code) error,
     required TResult Function(List<T> items) onSubsequentLoad,
@@ -378,7 +391,7 @@ class _$ErrorImpl<T> with DiagnosticableTreeMixin implements Error<T> {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<T> items)? data,
+    TResult? Function(List<T> items, bool reachedEnd)? data,
     TResult? Function()? loading,
     TResult? Function(String message, int? code)? error,
     TResult? Function(List<T> items)? onSubsequentLoad,
@@ -391,7 +404,7 @@ class _$ErrorImpl<T> with DiagnosticableTreeMixin implements Error<T> {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<T> items)? data,
+    TResult Function(List<T> items, bool reachedEnd)? data,
     TResult Function()? loading,
     TResult Function(String message, int? code)? error,
     TResult Function(List<T> items)? onSubsequentLoad,
@@ -497,7 +510,7 @@ class _$OnSubsequentLoadImpl<T>
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<T> items) data,
+    required TResult Function(List<T> items, bool reachedEnd) data,
     required TResult Function() loading,
     required TResult Function(String message, int? code) error,
     required TResult Function(List<T> items) onSubsequentLoad,
@@ -510,7 +523,7 @@ class _$OnSubsequentLoadImpl<T>
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<T> items)? data,
+    TResult? Function(List<T> items, bool reachedEnd)? data,
     TResult? Function()? loading,
     TResult? Function(String message, int? code)? error,
     TResult? Function(List<T> items)? onSubsequentLoad,
@@ -523,7 +536,7 @@ class _$OnSubsequentLoadImpl<T>
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<T> items)? data,
+    TResult Function(List<T> items, bool reachedEnd)? data,
     TResult Function()? loading,
     TResult Function(String message, int? code)? error,
     TResult Function(List<T> items)? onSubsequentLoad,
@@ -652,7 +665,7 @@ class _$OnSubsequentErrorImpl<T>
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(List<T> items) data,
+    required TResult Function(List<T> items, bool reachedEnd) data,
     required TResult Function() loading,
     required TResult Function(String message, int? code) error,
     required TResult Function(List<T> items) onSubsequentLoad,
@@ -665,7 +678,7 @@ class _$OnSubsequentErrorImpl<T>
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(List<T> items)? data,
+    TResult? Function(List<T> items, bool reachedEnd)? data,
     TResult? Function()? loading,
     TResult? Function(String message, int? code)? error,
     TResult? Function(List<T> items)? onSubsequentLoad,
@@ -678,7 +691,7 @@ class _$OnSubsequentErrorImpl<T>
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(List<T> items)? data,
+    TResult Function(List<T> items, bool reachedEnd)? data,
     TResult Function()? loading,
     TResult Function(String message, int? code)? error,
     TResult Function(List<T> items)? onSubsequentLoad,

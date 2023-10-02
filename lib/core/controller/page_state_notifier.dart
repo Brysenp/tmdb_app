@@ -16,7 +16,7 @@ class PageStateNotifier<T> extends StateNotifier<PageState<T>> {
   int maxPageNumber;
 
   bool _fetchingNextPage = false;
-  bool reachMaxPage = false;
+  bool _reachMaxPage = false;
 
   final List<T> _items = [];
 
@@ -28,15 +28,18 @@ class PageStateNotifier<T> extends StateNotifier<PageState<T>> {
           {bool isSubsequentCalled = false}) =>
       switch (result) {
         ApiResponseSuccess(:final data) => {
-           if(result.data.page == maxPageNumber){
-             reachMaxPage = true
-           },
+          // If maxPageNumber is negative value, use the total_pages number return from API to check reach end
+          if(maxPageNumber.isNegative){
+            _reachMaxPage = (result.data.page == result.data.totalPages)
+          }else{
+            _reachMaxPage = (result.data.page == maxPageNumber)
+          },
           pageNumber = result.data.page,
           if (data.results.isEmpty){
-            state = PageState.data(_items)
+            state = PageState.data(_items, _reachMaxPage)
           }
           else {
-            state = PageState.data(_items..addAll(data.results))
+            state = PageState.data(_items..addAll(data.results), _reachMaxPage)
           },
         },
         ApiResponseError(
@@ -83,7 +86,7 @@ class PageStateNotifier<T> extends StateNotifier<PageState<T>> {
     if (_fetchingNextPage) {
       return;
     }
-    if(reachMaxPage){
+    if(_reachMaxPage){
       return;
     }
     state = PageState.onSubsequentLoad(_items);

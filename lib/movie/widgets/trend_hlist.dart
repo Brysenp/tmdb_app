@@ -13,7 +13,7 @@ import 'movie_hlist.dart';
 class TrendHList extends StatelessWidget {
   TrendHList({super.key, this.title = 'Top Rated', required this.trendProvider});
   final String? title;
-  final StateNotifierProvider<PageStateNotifier<Movie>, PageState<Movie>> trendProvider;
+  final AutoDisposeStateNotifierProvider<PageStateNotifier<Movie>, PageState<Movie>> trendProvider;
 
   final ScrollController scrollController = ScrollController();
 
