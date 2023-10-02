@@ -6,17 +6,17 @@ part of 'api_response.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$ApiResponseSuccess<T> _$$ApiResponseSuccessFromJson<T>(
+_$ApiResponseSuccessImpl<T> _$$ApiResponseSuccessImplFromJson<T>(
   Map<String, dynamic> json,
   T Function(Object? json) fromJsonT,
 ) =>
-    _$ApiResponseSuccess<T>(
+    _$ApiResponseSuccessImpl<T>(
       fromJsonT(json['data']),
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$ApiResponseSuccessToJson<T>(
-  _$ApiResponseSuccess<T> instance,
+Map<String, dynamic> _$$ApiResponseSuccessImplToJson<T>(
+  _$ApiResponseSuccessImpl<T> instance,
   Object? Function(T value) toJsonT,
 ) =>
     <String, dynamic>{
@@ -24,19 +24,19 @@ Map<String, dynamic> _$$ApiResponseSuccessToJson<T>(
       'runtimeType': instance.$type,
     };
 
-_$ApiResponseClientError<T> _$$ApiResponseClientErrorFromJson<T>(
+_$ApiResponseClientErrorImpl<T> _$$ApiResponseClientErrorImplFromJson<T>(
   Map<String, dynamic> json,
   T Function(Object? json) fromJsonT,
 ) =>
-    _$ApiResponseClientError<T>(
+    _$ApiResponseClientErrorImpl<T>(
       json['code'] as int,
       json['message'] as String,
       json['referenceId'] as String?,
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$ApiResponseClientErrorToJson<T>(
-  _$ApiResponseClientError<T> instance,
+Map<String, dynamic> _$$ApiResponseClientErrorImplToJson<T>(
+  _$ApiResponseClientErrorImpl<T> instance,
   Object? Function(T value) toJsonT,
 ) =>
     <String, dynamic>{
@@ -46,19 +46,19 @@ Map<String, dynamic> _$$ApiResponseClientErrorToJson<T>(
       'runtimeType': instance.$type,
     };
 
-_$ApiResponseServerError<T> _$$ApiResponseServerErrorFromJson<T>(
+_$ApiResponseServerErrorImpl<T> _$$ApiResponseServerErrorImplFromJson<T>(
   Map<String, dynamic> json,
   T Function(Object? json) fromJsonT,
 ) =>
-    _$ApiResponseServerError<T>(
+    _$ApiResponseServerErrorImpl<T>(
       json['code'] as int,
       json['message'] as String,
       json['referenceId'] as String?,
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$ApiResponseServerErrorToJson<T>(
-  _$ApiResponseServerError<T> instance,
+Map<String, dynamic> _$$ApiResponseServerErrorImplToJson<T>(
+  _$ApiResponseServerErrorImpl<T> instance,
   Object? Function(T value) toJsonT,
 ) =>
     <String, dynamic>{
@@ -68,19 +68,19 @@ Map<String, dynamic> _$$ApiResponseServerErrorToJson<T>(
       'runtimeType': instance.$type,
     };
 
-_$ApiResponseError<T> _$$ApiResponseErrorFromJson<T>(
+_$ApiResponseErrorImpl<T> _$$ApiResponseErrorImplFromJson<T>(
   Map<String, dynamic> json,
   T Function(Object? json) fromJsonT,
 ) =>
-    _$ApiResponseError<T>(
+    _$ApiResponseErrorImpl<T>(
       json['code'] as int,
       json['message'] as String,
       json['referenceId'] as String?,
       $type: json['runtimeType'] as String?,
     );
 
-Map<String, dynamic> _$$ApiResponseErrorToJson<T>(
-  _$ApiResponseError<T> instance,
+Map<String, dynamic> _$$ApiResponseErrorImplToJson<T>(
+  _$ApiResponseErrorImpl<T> instance,
   Object? Function(T value) toJsonT,
 ) =>
     <String, dynamic>{
