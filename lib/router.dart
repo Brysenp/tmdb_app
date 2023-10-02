@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:net_flix/home_screen.dart';
-import 'package:net_flix/movie/screens/movie_detail.screen.dart';
+import 'package:net_flix/home/home_screen.dart';
+import 'package:net_flix/models/movie/movie.dart';
+import 'package:net_flix/movie_details/movie_detail_screen.dart';
 import 'package:net_flix/screens/test_screen.dart';
 
-import 'movie/models/movie.dart';
 import 'screens/base_screen.dart';
 
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>();
