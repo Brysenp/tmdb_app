@@ -29,6 +29,15 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
   }
 
+  // This function updates the appBarTransparency state based on scroll position
+  void _handleScroll(WidgetRef ref) {
+    customScrollController.addListener(() {
+      final newOpacity = customScrollController.offset / (MediaQuery.of(context).size.height * 0.2); // Adjust this value as needed
+      final clampedOpacity = newOpacity.clamp(0.0, 0.5); // Clamp opacity between 0.0 and 0.5
+      ref.read(appBarTransparency.notifier).state = clampedOpacity;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     dev.log('Rebuilt Home Screen Widget');
@@ -41,18 +50,11 @@ class _HomeScreenState extends State<HomeScreen> {
         Consumer(
             builder: (BuildContext context, WidgetRef ref, Widget? child){
               dev.log('Rebuilt Consumer Widget');
-              if(!(customScrollController.hasListeners)){
-                customScrollController.addListener(() {
-                  ref.read(appBarTransparency.notifier).state =
-                  (customScrollController.position.pixels) < maxScrollOffset ?
-                  ((customScrollController.position.pixels) / maxScrollOffset) * 0.6 : 0.6;
-                });
-              }
-              double appBarTranState = ref.watch(appBarTransparency);
+              _handleScroll(ref);
               return SliverAppBar(
                 floating: true,
                 pinned: true,
-                backgroundColor: Colors.transparent.withOpacity(appBarTranState),
+                backgroundColor: Colors.transparent.withOpacity(ref.watch(appBarTransparency)),
                 shadowColor: Colors.transparent,
                 foregroundColor: Colors.transparent,
                 elevation: 0,

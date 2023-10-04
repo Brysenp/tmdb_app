@@ -7,7 +7,7 @@ class ReleaseDateConverter implements JsonConverter<DateTime?, String>{
   @override
   DateTime? fromJson(String? json) {
     if(json?.trim().isNotEmpty ?? false){
-      DateTime.parse(json!);
+      return DateTime.parse(json!);
     }
     return null;
   }
