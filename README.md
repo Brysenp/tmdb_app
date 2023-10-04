@@ -52,10 +52,14 @@ graph TD;
 
 ## Demo
 
+
+https://github.com/Brysenp/tmdb_app/assets/96524192/3ef6d7b7-50c9-482d-a214-d80732f01e20
+
+
 ## Next Steps
--[x] Implement **Dio with Interceptor** :tada:
--[x] Implement **StateNotifier** :tada:
--[x] Implement **Paginating** :tada:
--[x] Implement **Complex UI** (Nested List without rebuilding other widgets when paginating) :tada:
--[ ] **Unit Test** 
--[ ] **UI Test** 
+- [x] Implement **Dio with Interceptor** :tada: <br>
+- [x] Implement **StateNotifier** :tada:<br>
+- [x] Implement **Paginating** :tada:<br>
+- [x] Implement **Complex UI** (Nested List without rebuilding other widgets when paginating) :tada:<br>
+- [ ] **Unit Test** <br>
+- [ ] **UI Test** 
