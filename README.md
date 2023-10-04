@@ -53,7 +53,8 @@ graph TD;
 ## Demo
 
 
-https://github.com/Brysenp/tmdb_app/assets/96524192/3ef6d7b7-50c9-482d-a214-d80732f01e20
+https://github.com/Brysenp/tmdb_app/assets/96524192/073d7c9f-a774-4ed6-9a64-90f709140659
+
 
 
 ## Next Steps
