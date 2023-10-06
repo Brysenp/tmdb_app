@@ -62,5 +62,5 @@ https://github.com/Brysenp/tmdb_app/assets/96524192/073d7c9f-a774-4ed6-9a64-90f7
 - [x] Implement **StateNotifier** :tada:<br>
 - [x] Implement **Paginating** :tada:<br>
 - [x] Implement **Complex UI** (Nested List without rebuilding other widgets when paginating) :tada:<br>
-- [ ] **Unit Test** <br>
-- [ ] **UI Test** 
+- [x] **Unit Test** <br>
+- [x] **UI Test** 

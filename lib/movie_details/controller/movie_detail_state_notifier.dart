@@ -8,30 +8,30 @@ import 'dart:developer' as dev;
 import 'package:net_flix/movie_details/services/movie_details_service.dart';
 
 class MovieDetailStateNotifier extends StateNotifier<LoadState<MovieDetail>> {
-  MovieDetailStateNotifier({required this.ref, required this.movieId})
+  MovieDetailStateNotifier({required this.fetchData})
       : super(const LoadState.loading());
-  int movieId;
-  Ref ref;
+
+  final Future<ApiResponse<MovieDetail>> Function() fetchData;
+
 
   bool _fetching = false;
 
   void init() async {
-    fetchData();
+    fetchMovieDetail();
   }
 
   void refresh() async {
     state = const LoadState.loading();
-    fetchData();
+    fetchMovieDetail();
   }
 
-  Future<void> fetchData() async {
+  Future<void> fetchMovieDetail() async {
     if (_fetching) {
       return;
     }
     try {
       _fetching = true;
-      final result =
-          await ref.watch(movieDetailServiceProvider).getMovieDetail(movieId);
+      final result = await fetchData();
       updateState(result);
     } catch (error) {
       state = LoadState.error(error.toString(), null);
