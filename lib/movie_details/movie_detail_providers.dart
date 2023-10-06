@@ -8,25 +8,29 @@ import 'package:net_flix/models/movie/review.dart';
 import 'package:net_flix/movie_details/controller/movie_detail_state_notifier.dart';
 import 'package:net_flix/movie_details/services/movie_details_service.dart';
 
-final movieDetailProvider = StateNotifierProvider.autoDispose.family<
-    MovieDetailStateNotifier,
-    LoadState<MovieDetail>,
-    int>((ref, id) => MovieDetailStateNotifier(ref: ref, movieId: id)..init());
+final movieDetailProvider = StateNotifierProvider.autoDispose
+    .family<MovieDetailStateNotifier, LoadState<MovieDetail>, int>(
+        (ref, id) => MovieDetailStateNotifier(fetchData: () {
+              return ref.read(movieDetailServiceProvider).getMovieDetail(id);
+            })
+              ..init());
 
-final movieReviewsProvider = StateNotifierProvider.autoDispose.family<PageStateNotifier<Review>,
-    PageState<Review>, int>(
+final movieReviewsProvider = StateNotifierProvider.autoDispose
+    .family<PageStateNotifier<Review>, PageState<Review>, int>(
         (ref, movieId) => PageStateNotifier(fetchNext: (page) {
-      return ref.read(movieDetailServiceProvider).getMovieReviews(movieId, page);
-    })..inti());
+              return ref
+                  .read(movieDetailServiceProvider)
+                  .getMovieReviews(movieId, page);
+            })
+              ..inti());
 
-final movieRecommendation = StateNotifierProvider.autoDispose.family<
-    PageStateNotifier<Movie>, PageState<Movie>, int>(
+final movieRecommendation = StateNotifierProvider.autoDispose
+    .family<PageStateNotifier<Movie>, PageState<Movie>, int>(
         (ref, movieId) => PageStateNotifier(
-      fetchNext: (page) {
-        return ref
-            .read(movieDetailServiceProvider)
-            .getRecommendMovie(movieId, page);
-      },
-      maxPageNumber: 1,
-    )..inti());
-
+              fetchNext: (page) {
+                return ref
+                    .read(movieDetailServiceProvider)
+                    .getRecommendMovie(movieId, page);
+              },
+              maxPageNumber: 1,
+            )..inti());
